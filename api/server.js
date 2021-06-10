@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const path = require("path");
 
 const app = express();
 
@@ -9,6 +10,8 @@ app.use(express.urlencoded());
 
 const privateServiceLayer = require("./routes/middleware_private");
 app.use("/private", privateServiceLayer);
+
+app.use(express.static(path.join(__dirname, "build")));
 
 function eventsHandler(req, res, next) {
     // Mandatory headers and http status to keep connection open
