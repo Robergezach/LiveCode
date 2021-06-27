@@ -48,6 +48,7 @@ function CodeBox() {
                     padding: "20px",
                     background: "#121112",
                     color: "white",
+                    width: "80%",
                 }}
             >
                 <Editor

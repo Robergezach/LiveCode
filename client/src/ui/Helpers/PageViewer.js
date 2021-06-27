@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { update } from "../../globalHelpers/StateTree";
 import CodeBox from "../Components/CodeBox";
+import Timer from "../Components/Timer";
 import _ from "lodash";
 
-const layout = [CodeBox];
+const headerLayout = [CodeBox, Timer];
+const bodyLayout = [];
 
 function PageViewer() {
     const [state, setState] = useState({});
@@ -36,9 +38,20 @@ function PageViewer() {
 
 function renderComponents() {
     try {
-        return _.map(layout, (component) => {
-            return React.createElement(component);
-        });
+        return (
+            <div>
+                <div
+                    style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                    }}
+                >
+                    {_.map(headerLayout, (component) => {
+                        return React.createElement(component);
+                    })}
+                </div>
+            </div>
+        );
     } catch (e) {
         console.log(e);
     }

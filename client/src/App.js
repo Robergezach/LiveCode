@@ -1,4 +1,3 @@
-import logo from "./logo.svg";
 import "./App.css";
 import PageViewer from "./ui/Helpers/PageViewer";
 

@@ -1,38 +1,127 @@
 .App {
-  text-align: center;
+    text-align: center;
 }
 
 .App-logo {
-  height: 40vmin;
-  pointer-events: none;
+    height: 40vmin;
+    pointer-events: none;
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+    .App-logo {
+        animation: App-logo-spin infinite 20s linear;
+    }
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+    background-color: #282c34;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
 }
 
 .App-link {
-  color: #61dafb;
+    color: #61dafb;
 }
 
 @keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.fancy-button {
+    color: #ebebeb;
+    background: #1f1f1f;
+    text-align: center;
+    padding: 5px;
+    transition: color 0.5s;
+    transition: background 0.5s;
+    cursor: pointer;
+    font-size: 16px;
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+/Edge */
+    user-select: none; /* Standard */
+}
+
+.fancy-button:hover {
+    color: #575757;
+    background: #d4d4d4;
+    transition: color 0.5s;
+    transition: background 0.5s;
+}
+
+.fancy-button:active {
+    margin: 1px 3px;
+    background-color: #b9b9b9;
+    transition: margin 0.1s;
+}
+
+.timer-style {
+    font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic,
+        AppleGothic, sans-serif;
+    color: #363636;
+}
+
+.time-tracker {
+    padding: 20px;
+    background: #363636;
+    color: #ebebeb;
+    letter-spacing: 5px;
+}
+
+.time-tracker-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #242424;
+}
+
+.clock {
+    border-radius: 50%;
+    background-image: url("https://lh3.googleusercontent.com/proxy/vmv2d2GgUhWJW79WystbjrqiLpDWkhvgCNvEIdpfOvyYXXQ1hRVtkM2L8lVkKr4Ktb57YOlQ63QlVr8-CvGD0rB2tLEVvbS6bb0FF-lRqpYD");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    background-color: white;
+    padding: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.clock-hand {
+    background: black;
+    height: 50px;
+    position: absolute;
+    margin-top: -50px;
+    transform-origin: 50% 100%;
+    width: 3px;
+    -webkit-transition: -webkit-transform 0.8s ease-in-out;
+    -ms-transition: -ms-transform 0.8s ease-in-out;
+    transition: transform 0.8s ease-in-out;
+}
+
+.clock-hand-wrapper {
+    padding: 3px;
+    background: black;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+circle {
+    transition: stroke-dashoffset 0.8s ease-in-out;
+    transform: rotate(-90deg);
+    transform-origin: 50% 50%;
 }
