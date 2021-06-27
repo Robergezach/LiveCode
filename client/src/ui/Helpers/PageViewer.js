@@ -2,10 +2,11 @@ import React, { useState, useEffect } from "react";
 import { update } from "../../globalHelpers/StateTree";
 import CodeBox from "../Components/CodeBox";
 import Timer from "../Components/Timer";
+import ChallengeSelector from "../Components/ChallengeSelector";
 import _ from "lodash";
 
 const headerLayout = [CodeBox, Timer];
-const bodyLayout = [];
+const bodyLayout = [ChallengeSelector];
 
 function PageViewer() {
     const [state, setState] = useState({});
@@ -47,6 +48,16 @@ function renderComponents() {
                     }}
                 >
                     {_.map(headerLayout, (component) => {
+                        return React.createElement(component);
+                    })}
+                </div>
+                <div
+                    style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                    }}
+                >
+                    {_.map(bodyLayout, (component) => {
                         return React.createElement(component);
                     })}
                 </div>

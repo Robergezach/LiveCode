@@ -119,8 +119,8 @@ function renderButtons([time, setTime, running, setRunning]) {
                 <div
                     class="fancy-button"
                     onClick={() => {
-                        target = 120;
-                        setTime(120);
+                        target = 20;
+                        setTime(20);
                     }}
                 >
                     RESET

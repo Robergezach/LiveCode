@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { subscribe } from "../../globalHelpers/StateTree";
 import Express from "../../middleware/middleware_controller";
-import { LiveProvider, LiveEditor, LiveError, LivePreview } from "react-live";
-import dracula from "prism-react-renderer/themes/dracula";
 
 import Editor from "react-simple-code-editor";
 import { highlight, languages } from "prismjs/components/prism-core";
@@ -19,8 +17,9 @@ function CodeBox() {
     useEffect(() => {
         if (!subscribed) {
             subscribe("code", (results) => {
+                console.log("results", results);
                 try {
-                    if (editing) {
+                    if (editing || !results) {
                         return;
                     }
 
