@@ -3,21 +3,26 @@ import ProgressRing from "./ProgressRing";
 
 function Clock(props) {
     try {
-        const time = 360 - (props.time / props.target) * 360;
-        const percentage = (time / 360) * 100;
+        let time = 0;
+        let percentage = 0;
+
+        if (props.time > 0 && props.target > 0) {
+            time = 360 - (props.time / props.target) * 360;
+            percentage = (time / 360) * 100;
+        }
 
         return (
             <div style={{ display: "flex", justifyContent: "center" }}>
                 <article
-                    class="clock"
+                    className="clock"
                     style={{ padding: props.size ? props.size + "px" : "50px" }}
                 >
                     <div style={{ position: "absolute" }}>
                         <ProgressRing progress={percentage || 0} radius={100} />
                     </div>
-                    <div class="clock-hand-wrapper">
+                    <div className="clock-hand-wrapper">
                         <div
-                            class="clock-hand"
+                            className="clock-hand"
                             style={{
                                 transform: "rotateZ(" + time + "deg)",
                                 height: props.size ? props.size + "px" : "50px",

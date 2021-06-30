@@ -9,12 +9,11 @@ function ProgressRing(props) {
     return (
         <svg height={radius * 2} width={radius * 2}>
             <circle
-                stroke="red"
+                stroke={progress < 90 ? "#42ff75" : "red"}
                 fill="transparent"
                 strokeWidth={stroke}
                 strokeDasharray={circumference + " " + circumference}
                 style={{ strokeDashoffset }}
-                stroke-width={stroke}
                 r={normalizedRadius}
                 cx={radius}
                 cy={radius}

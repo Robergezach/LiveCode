@@ -88,7 +88,6 @@
 
 .clock {
     border-radius: 50%;
-    background-image: url("https://lh3.googleusercontent.com/proxy/vmv2d2GgUhWJW79WystbjrqiLpDWkhvgCNvEIdpfOvyYXXQ1hRVtkM2L8lVkKr4Ktb57YOlQ63QlVr8-CvGD0rB2tLEVvbS6bb0FF-lRqpYD");
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
@@ -124,4 +123,30 @@ circle {
     transition: stroke-dashoffset 0.8s ease-in-out;
     transform: rotate(-90deg);
     transform-origin: 50% 50%;
+}
+
+.challenge-option {
+    border: solid thin gray;
+    border-radius: 3px;
+    color: rgb(37, 37, 37);
+    padding: 5px;
+    margin-top: 2px;
+    margin-bottom: 2px;
+    cursor: pointer;
+}
+
+.challenge-option:hover {
+    border: solid thin gray;
+    background-color: rgb(37, 37, 37);
+    color: rgb(231, 231, 231);
+    padding: 5px;
+    margin-top: 2px;
+    margin-bottom: 2px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    transition: color 0.2s;
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+/Edge */
+    user-select: none; /* Standard */
 }

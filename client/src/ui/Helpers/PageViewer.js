@@ -22,12 +22,19 @@ function PageViewer() {
         const route = window.location.origin.includes("localhost")
             ? "http://localhost:4000/events/"
             : "/events/";
-        const events = new EventSource(route + sessionId);
+        let events = new EventSource(route + sessionId);
         events.onmessage = (event) => {
             const parsedData = JSON.parse(event.data);
             try {
-                update("code", parsedData);
+                update(
+                    parsedData.observable ? parsedData.observable : "code",
+                    parsedData
+                );
             } catch (e) {}
+        };
+
+        events.onerror = (event) => {
+            events = new EventSource(route + sessionId);
         };
     });
     try {
@@ -47,8 +54,8 @@ function renderComponents() {
                         justifyContent: "space-between",
                     }}
                 >
-                    {_.map(headerLayout, (component) => {
-                        return React.createElement(component);
+                    {_.map(headerLayout, (component, index) => {
+                        return React.createElement(component, { key: index });
                     })}
                 </div>
                 <div
@@ -57,8 +64,8 @@ function renderComponents() {
                         justifyContent: "space-between",
                     }}
                 >
-                    {_.map(bodyLayout, (component) => {
-                        return React.createElement(component);
+                    {_.map(bodyLayout, (component, index) => {
+                        return React.createElement(component, { key: index });
                     })}
                 </div>
             </div>

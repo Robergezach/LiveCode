@@ -1,16 +1,46 @@
 import React, { useState, useEffect } from "react";
+import Express from "../../middleware/middleware_controller";
 import { subscribe } from "../../globalHelpers/StateTree";
 import Clock from "./Clock";
 
 let timer = null;
 let target = 0;
 let _id = null;
+let subscribed = false;
 
 function Timer(props) {
     const [time, setTime] = useState(0);
     const [running, setRunning] = useState(false);
 
-    useEffect(() => {});
+    useEffect(() => {
+        if (!subscribed) {
+            Express.call("get-time", {}, (results) => {
+                Express.call("get-current-challenge", {}, (challenge) => {
+                    if (challenge) {
+                        target = challenge.duration;
+                    } else {
+                        target = results || 0;
+                    }
+                    setTime(results || 0);
+                });
+            });
+        }
+
+        if (!subscribed) {
+            subscribe("time", (results) => {
+                try {
+                    subscribed = true;
+                    if (results.time && results.time != time) {
+                        target = results.duration;
+                        setTime(results.time);
+                        setRunning(results.running || false);
+                    }
+                } catch (e) {
+                    console.log(e);
+                }
+            });
+        }
+    });
 
     try {
         if (_id != props._id) {
@@ -19,7 +49,7 @@ function Timer(props) {
 
         return (
             <div
-                class="timer-style"
+                className="timer-style"
                 style={{
                     width: "20%",
                     height: "unset",
@@ -56,7 +86,6 @@ function stopTimer([time, setTime, running, setRunning]) {
 function renderTimerBody([time, setTime, running]) {
     try {
         const formattedTime = convertTime(time);
-
         return (
             <div
                 style={{
@@ -69,12 +98,12 @@ function renderTimerBody([time, setTime, running]) {
                 }}
             >
                 <div
-                    class="time-tracker-wrapper"
+                    className="time-tracker-wrapper"
                     style={{ marginBottom: "10px" }}
                 >
-                    <div class="time-tracker">{formattedTime.minutes}</div>
-                    <div class="time-tracker">:</div>
-                    <div class="time-tracker">{formattedTime.seconds}</div>
+                    <div className="time-tracker">{formattedTime.minutes}</div>
+                    <div className="time-tracker">:</div>
+                    <div className="time-tracker">{formattedTime.seconds}</div>
                 </div>
                 <Clock
                     size={100}
@@ -104,23 +133,32 @@ function renderButtons([time, setTime, running, setRunning]) {
                 }}
             >
                 <div
-                    class="fancy-button"
+                    className="fancy-button"
                     style={{ marginBottom: "5px" }}
                     onClick={() => {
-                        if (!running) {
-                            startTimer([time, setTime, running, setRunning]);
+                        if (running) {
+                            setRunning(false);
+                            Express.call("stop-time", {}, () => {});
                         } else {
-                            stopTimer([time, setTime, running, setRunning]);
+                            setRunning(true);
+                            Express.call("start-time", {}, () => {});
                         }
                     }}
                 >
                     {running ? "PAUSE" : "START"}
                 </div>
                 <div
-                    class="fancy-button"
+                    className="fancy-button"
                     onClick={() => {
-                        target = 20;
-                        setTime(20);
+                        Express.call("get-current-challenge", {}, (results) => {
+                            if (results) {
+                                Express.call("set-time", {
+                                    timeInput: results.duration,
+                                });
+                            } else {
+                                Express.call("set-time", { timeInput: 0 });
+                            }
+                        });
                     }}
                 >
                     RESET
@@ -137,7 +175,7 @@ const convertTime = (secs) => {
         const hours = Math.floor(secs / 3600) + "";
 
         let divisor_for_minutes = secs % (60 * 60);
-        let minutes = Math.floor(divisor_for_minutes / 60);
+        let minutes = Math.floor(divisor_for_minutes / 60) + hours * 60;
 
         let divisor_for_seconds = divisor_for_minutes % 60;
         let seconds = Math.ceil(divisor_for_seconds);

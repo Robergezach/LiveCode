@@ -39,8 +39,7 @@ function eventsHandler(req, res, next) {
     // When client closes connection we update the clients list
     // avoiding the disconnected one
     req.on("close", () => {
-        console.log(`${clientId} Connection closed`);
-        // clients = clients.filter((c) => c.id !== clientId);
+        console.log(`${sessionId} Connection closed`);
     });
 }
 

@@ -16,10 +16,13 @@ function CodeBox() {
 
     useEffect(() => {
         if (!subscribed) {
+            const sessionId = window.sessionStorage.getItem("sessionId");
             subscribe("code", (results) => {
-                console.log("results", results);
                 try {
-                    if (editing || !results) {
+                    if (
+                        !results.force &&
+                        (sessionId === results.sessionId || !results)
+                    ) {
                         return;
                     }
 
@@ -54,7 +57,7 @@ function CodeBox() {
                     value={state.code}
                     onValueChange={(code) => {
                         editing = true;
-                        Express.call("session", {
+                        Express.call("change-code", {
                             sessionId:
                                 window.sessionStorage.getItem("sessionId"),
                             code,

@@ -2,7 +2,8 @@ import { BehaviorSubject } from "rxjs";
 
 const observables = {
     code: new BehaviorSubject("<div>hello</div>"),
-    timer: new BehaviorSubject(0),
+    time: new BehaviorSubject(0),
+    challenge: new BehaviorSubject(null),
 };
 
 export { observables };
