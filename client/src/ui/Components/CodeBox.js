@@ -10,13 +10,14 @@ import "prismjs/themes/prism-funky.css";
 
 let subscribed = false;
 let editing = false;
+let sessionId = null;
 function CodeBox() {
     const [state, setState] = useState({ code: "console.log('hello')" });
     const [answer, setAnswer] = useState(null);
 
     useEffect(() => {
         if (!subscribed) {
-            const sessionId = window.sessionStorage.getItem("sessionId");
+            sessionId = window.sessionStorage.getItem("sessionId");
             subscribe("code", (results) => {
                 try {
                     if (
@@ -24,6 +25,10 @@ function CodeBox() {
                         (sessionId === results.sessionId || !results)
                     ) {
                         return;
+                    }
+
+                    if (!sessionId) {
+                        sessionId = window.sessionStorage.getItem("sessionId");
                     }
 
                     if (
